@@ -14,7 +14,7 @@ module.exports = {
     author: `@henrikwirth`,
   },
   plugins: [
-    `gatsby-plugin-notifications`,
+    // `gatsby-plugin-notifications`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -27,7 +27,10 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        url: process.env.WPGRAPHQL_URL,
+        // url: process.env.WPGRAPHQL_URL,
+        url:
+          process.env.WPGRAPHQL_URL ||
+          `http://wp.localhost/graphql`,
         verbose: true,
         develop: {
           hardCacheMediaFiles: true,
