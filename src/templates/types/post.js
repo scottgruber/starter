@@ -7,6 +7,7 @@ import ContentTypePagination from "../../components/ContentTypePagination"
 import AuthorBio from "../../components/AuthorBio"
 import PostMeta from "../../components/PostMeta"
 import PostCategories from "../../components/PostCategories"
+import PostTags from "../../components/PostTags"
 import FeaturedMedia from "../../components/FeaturedMedia"
 
 const post = ({ data }) => {
@@ -16,6 +17,7 @@ const post = ({ data }) => {
     content,
     featuredImage,
     categories,
+    // tags,
     excerpt,
     databaseId,
     author,
@@ -29,12 +31,16 @@ const post = ({ data }) => {
       <Seo title={title} description={excerpt} />
 
       <article
-        className={`post-${databaseId} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized`}
+        className={`post-${databaseId} post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized tag-untagged`}
         id={`post-${databaseId}`}
       >
         <header className="entry-header has-text-align-center header-footer-group">
           <div className="entry-header-inner section-inner medium">
-            <PostCategories categories={categories} />
+            
+            Categories: <PostCategories categories={categories} />
+            
+            
+                      
             <h1
               className="entry-title"
               dangerouslySetInnerHTML={{ __html: title }}
@@ -46,7 +52,7 @@ const post = ({ data }) => {
             <PostMeta title={title} author={author} date={date} />
           </div>
         </header>
-
+        
         <FeaturedMedia image={featuredImage} />
 
         <div className="post-inner thin">

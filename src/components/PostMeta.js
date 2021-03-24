@@ -39,7 +39,8 @@ const PostMeta = ({ author, title, date }) => {
           <span className="meta-text">
             <a href="#respond">
               {/*TODO: Dynamic comments*/}
-              No Comments<br /> (PostMeta.js) <br />Replace with Discus
+              No Comments
+              <br /> (PostMeta.js) <br />Replace with Disqus?
               <span className="screen-reader-text">
                 {" "}
                 on <span dangerouslySetInnerHTML={{ __html: title }} />

@@ -9,9 +9,20 @@ module.exports = async ({ actions, graphql }, options) => {
       allWpTermNode {
         nodes {
           ... on WpTag {
-            name
+            count
             uri
             databaseId
+            link
+            contentNodes {
+              nodes {
+                uri
+                ... on WpPost {
+                  id
+                  title
+                  excerpt
+                }
+              }
+            }
           }
         }
       }
@@ -26,7 +37,7 @@ module.exports = async ({ actions, graphql }, options) => {
 
   await Promise.all(
     tagData.allWpTermNode.nodes.map(async (tag, index) => {
-      // making sure if the union objects are empty, that this doesn't go further (... on WpCategory can produce empty {} objects)
+      // making sure if the union objects are empty, that this doesn't go further (... on WpTag can produce empty {} objects)
       if (Object.keys(tag).length) {
         const { data } = await graphql(/* GraphQL */ `
           {
@@ -55,6 +66,11 @@ module.exports = async ({ actions, graphql }, options) => {
         const chunkedContentNodes = chunk(data.allWpPost.nodes, perPage)
 
         const tagPath = tag.uri
+        
+        // const tagPath = tag.slug
+        // this produced nice code error
+
+        // const tagPath = tag.date
 
         await Promise.all(
           chunkedContentNodes.map(async (nodesChunk, index) => {

@@ -44,6 +44,7 @@ export const query = graphql`
     $perPage: Int!
     $userDatabaseId: Int
     $categoryDatabaseId: Int
+    $tagDatabaseId: Int
   ) {
     allWpPost(
       limit: $perPage
@@ -53,6 +54,9 @@ export const query = graphql`
           node: { databaseId: { eq: $userDatabaseId } }}
         categories: {
           nodes: { elemMatch: { databaseId: { eq: $categoryDatabaseId } } }
+        }
+        tags: {
+          nodes: { elemMatch: { databaseId: { eq: $tagDatabaseId } } }
         }
       }
       sort: { fields: date, order: DESC }
